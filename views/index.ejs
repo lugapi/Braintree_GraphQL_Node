@@ -30,15 +30,13 @@
 
             const result = await response.json();
             console.log(result);
-            console.log(result.data.approvalUrl);
-            window.location.replace(result.data.approvalUrl);
-
-
+            
             if (result.error) {
                 alert('Erreur : ' + result.error);
                 // redirect customer on custom page
             } else {
-                alert('Mutation GraphQL réussie !');
+                // alert('Mutation GraphQL réussie !');
+                window.location.replace(result.data.approvalUrl);
             }
         }
     </script>

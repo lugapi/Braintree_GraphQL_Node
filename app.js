@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const { ping } = require('./controllers/testController');
 require('dotenv').config();
 
 // Définir EJS comme moteur de templates
@@ -14,57 +15,8 @@ app.get('/', (req, res) => {
     res.render('index', { title: 'Test Braintree GraphQL' });
 });
 
-/////////////////////////
-// GRAPHQL CONFIG START
-/////////////////////////
+app.get('/ping', ping);
 
-const braintreeAuthHeader = () => {
-    const token = Buffer.from(
-        `${process.env.BRAINTREE_PUBLIC_KEY}:${process.env.BRAINTREE_PRIVATE_KEY}`
-    ).toString('base64');
-    return `Basic ${token}`;
-};
-
-const braintreeHeaders = () => ({
-    'Braintree-Version': '2022-11-25',
-    'Content-Type': 'application/json',
-    Authorization: braintreeAuthHeader(),
-});
-
-const url = 'https://payments.sandbox.braintree-api.com/graphql';
-
-/////////////////////////
-// GRAPHQL CONFIG END
-/////////////////////////
-
-
-app.get('/ping', async (req, res) => {
-
-    const query = `
-      query {
-        ping
-      }
-    `;
-
-    const options = {
-        method: 'POST',
-        headers: braintreeHeaders(),
-        body: JSON.stringify({ query }),
-    };
-
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-
-        if (data.errors) {
-            return res.status(400).json({ errors: data.errors });
-        }
-
-        res.json({ message: 'Ping réussi', data: data.data });
-    } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la communication avec Braintree', details: error.message });
-    }
-});
 // Route pour gérer le clic sur le bouton PayPal
 app.post('/paypal-create-transaction', async (req, res) => {
     const url = 'https://payments.sandbox.braintree-api.com/graphql';
