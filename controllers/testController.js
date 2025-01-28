@@ -1,8 +1,7 @@
-const { braintreeHeaders } = require('../utils/braintreeInit'); // Import des headers
+const { braintreeHeaders } = require('../utils/braintreeInit');
 
 const url = 'https://payments.sandbox.braintree-api.com/graphql';
 
-// Fonction pour gérer le ping
 const ping = async (req, res) => {
     const query = `
         query {
@@ -33,7 +32,6 @@ const ping = async (req, res) => {
     }
 };
 
-// Exporter les fonctions du controller
 module.exports = {
     ping,
 };

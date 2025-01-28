@@ -1,8 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3003;
 const { ping } = require('./controllers/testController');
-require('dotenv').config();
+const { braintreeHeaders } = require('./utils/braintreeInit');
 
 // Définir EJS comme moteur de templates
 app.set('view engine', 'ejs');
