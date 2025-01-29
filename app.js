@@ -32,22 +32,24 @@ app.post('/paypal-create-transaction', async (req, res) => {
                 }
             }
         `,
-        variables: {
-            lucasInput: {
-                amount: { value: "100.01", currencyCode: "EUR" },
-                intent: "SALE",
-                returnUrl: "https://paypal.com/success",
-                cancelUrl: "https://paypal.com/cancel",
-                offerPayLater: false,
-                shippingAddress: {
-                    addressLine1: "700 Cuesta Dr",
-                    adminArea1: "CA",
-                    adminArea2: "Mountain View",
-                    postalCode: "94040",
-                    countryCode: "US"
-                }
-            }
-        }
+        // variables: {
+        //     lucasInput: {
+        //         amount: { value: "100.01", currencyCode: "EUR" },
+        //         intent: "SALE",
+        //         returnUrl: "https://integration.lugapi.fr/display-params",
+        //         cancelUrl: "https://paypal.com/cancel",
+        //         offerPayLater: false,
+        //         requestBillingAgreement: true,
+        //         shippingAddress: {
+        //             addressLine1: "700 Cuesta Dr",
+        //             adminArea1: "CA",
+        //             adminArea2: "Mountain View",
+        //             postalCode: "94040",
+        //             countryCode: "US"
+        //         }
+        //     }
+        // }
+        variables : req.body.jsonToSend.variables
     });
 
     // Configuration de la requête fetch
