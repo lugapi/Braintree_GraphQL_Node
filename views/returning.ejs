@@ -10,6 +10,14 @@
     <style>
         .ppBtn {
             transition: all 0.2s;
+            background-color: #FFC439;
+            /* width: 50%; */
+            border: 0px;
+            border-radius: 4px;
+            margin: 2%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .ppBtn:hover {
@@ -30,9 +38,8 @@
         <%= title %>
     </h1>
     <div class="jsonContent" id="jsoneditor"></div>
-    <div class="ppBtn" onclick="callGraphQL()">
-        <svg width="507" height="55" viewBox="0 0 507 55" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+    <button class="ppBtn" onclick="callGraphQL()">
+        <svg width="507" height="55" viewBox="0 0 507 55" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="507" height="55" rx="4" fill="#FFC439" />
             <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M292.85 17.4502L290.25 34.7002C290.2 35.0502 290.45 35.3502 290.75 35.3502H293.35C293.8 35.3502 294.15 35.0002 294.2 34.6002L296.75 17.7002C296.8 17.3502 296.55 17.0502 296.25 17.0502H293.3C293.1 17.0002 292.9 17.2002 292.85 17.4502Z"
@@ -53,24 +60,18 @@
                 d="M223.55 23.2C223.2 25.55 221.35 25.55 219.6 25.55H218.6L219.3 21.15C219.35 20.9 219.6 20.7 219.85 20.7H220.3C221.5 20.7 222.65 20.7 223.25 21.4C223.6 21.75 223.7 22.35 223.55 23.2ZM222.8 17H216.1C215.65 17 215.3 17.35 215.2 17.75L212.5 34.7C212.45 35.05 212.7 35.35 213.05 35.35H216.25C216.7 35.35 217.1 35 217.15 34.6L217.9 30.05C217.95 29.6 218.35 29.3 218.8 29.3H220.9C225.3 29.3 227.85 27.2 228.5 23.05C228.8 21.25 228.5 19.8 227.65 18.8C226.7 17.6 225.05 17 222.8 17Z"
                 fill="#003087" />
         </svg>
-    </div>
+        <span>
+            test@test.com
+        </span>
+    </button>
 </body>
 <script>
     const json = {
         variables: {
             lucasInput: {
-                amount: { value: "100.01", currencyCode: "EUR" },
-                intent: "SALE",
-                returnUrl: "https://integration.lugapi.fr/display-params",
-                cancelUrl: "https://paypal.com/cancel",
-                offerPayLater: false,
-                requestBillingAgreement: true,
-                shippingAddress: {
-                    addressLine1: "700 Cuesta Dr",
-                    adminArea1: "CA",
-                    adminArea2: "Mountain View",
-                    postalCode: "94040",
-                    countryCode: "US"
+                paymentMethodId: "cGF5bWVudG1ldGhvZF9wcF9yZWJxYWN4aw",
+                transaction: {
+                    amount: "22.22"
                 }
             }
         }
@@ -91,7 +92,7 @@
 
     async function callGraphQL() {
         jsonToSend = editor.get();
-        const response = await fetch('/paypal-create-transaction', {
+        const response = await fetch('/paypal-returning', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -109,9 +110,7 @@
             alert('Erreur : ' + result.error);
             // redirect customer on custom page
         } else {
-            // alert('Mutation GraphQL réussie !');
-            // window.location.replace(result.data.approvalUrl);
-            window.open(result.data.approvalUrl, '_blank');
+            alert('Transaction réussie !');
         }
     }
 </script>
