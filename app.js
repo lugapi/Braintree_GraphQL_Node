@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const port = 3003;
 const { ping } = require('./controllers/testController');
-const { createPayPalOneTimePayment, chargePaymentMethod } = require('./controllers/paypalController');
+const { createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, vaultPaymentMethod } = require('./controllers/paypalController');
 
 // Définir EJS comme moteur de templates
 app.set('view engine', 'ejs');
@@ -34,6 +34,14 @@ app.get('/returning', (req, res) => {
 // Route pour gérer le clic sur le bouton PayPal
 app.post('/paypal-create-transaction', async (req, res) => {
     createPayPalOneTimePayment(req, res)
+});
+
+app.post('/paypal-tokenize-ba', async (req, res) => {
+    tokenizePayPalBillingAgreement(req, res)
+});
+
+app.post('/paypal-vault-pm', async (req, res) => {
+    vaultPaymentMethod(req, res)
 });
 
 // Route pour gérer le clic sur le bouton PayPal

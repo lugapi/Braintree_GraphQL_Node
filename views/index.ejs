@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.7.4/jsoneditor.css"
         integrity="sha512-XmjnlPNi5tkrcqMGEG7ZOpGhny9t8fdCk0oxZxjFaqF3cl3UKv+51GgeUoY3Rf/ZaGtBvMZ9dDhceGZ1hcOyMw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
@@ -31,8 +32,7 @@
     </h1>
     <div class="jsonContent" id="jsoneditor"></div>
     <div class="ppBtn" onclick="callGraphQL()">
-        <svg width="507" height="55" viewBox="0 0 507 55" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+        <svg width="507" height="55" viewBox="0 0 507 55" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="507" height="55" rx="4" fill="#FFC439" />
             <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M292.85 17.4502L290.25 34.7002C290.2 35.0502 290.45 35.3502 290.75 35.3502H293.35C293.8 35.3502 294.15 35.0002 294.2 34.6002L296.75 17.7002C296.8 17.3502 296.55 17.0502 296.25 17.0502H293.3C293.1 17.0002 292.9 17.2002 292.85 17.4502Z"
@@ -57,6 +57,15 @@
 
     <div class="result">
         <pre></pre>
+    </div>
+
+    <!-- <div class="BaToVault hidden"> -->
+    <div class="BaToVault">
+        <label>
+            Billing Agreement retrieved in the return URL :
+        </label>
+        <input type="text" class="border">
+        <button onclick="tokenizeBA()">Vault !</button>
     </div>
 </body>
 <script>
@@ -109,6 +118,7 @@
         const result = await response.json();
         console.log(result);
         document.querySelector('.result pre').innerHTML = JSON.stringify(result, null, 2);
+        document.querySelector('.BaToVault').classList.remove('hidden')
 
         if (result.error) {
             alert('Erreur : ' + result.error);
@@ -117,6 +127,34 @@
             // alert('Mutation GraphQL réussie !');
             // window.location.replace(result.data.approvalUrl);
             window.open(result.data.approvalUrl, '_blank');
+        }
+    }
+
+    async function tokenizeBA() {
+
+        const BaToVault = document.querySelector('.BaToVault input').value;
+
+        const response = await fetch('/paypal-tokenize-ba', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                // Ajoutez les données nécessaires à la mutation ici
+                BaToVault
+            }),
+        });
+
+        const result = await response.json();
+        console.log(result);
+        // document.querySelector('.result pre').innerHTML = JSON.stringify(result, null, 2);
+        // document.querySelector('.BaToVault').classList.remove('hidden')
+
+        if (result.error) {
+            alert('Erreur : ' + result.error);
+            // redirect customer on custom page
+        } else {
+            alert('Mutation GraphQL réussie !');
         }
     }
 </script>
