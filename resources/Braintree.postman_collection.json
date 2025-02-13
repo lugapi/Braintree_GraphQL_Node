@@ -1,0 +1,1574 @@
+{
+	"info": {
+		"_postman_id": "077e2454-82c1-4047-8387-c1e351da2303",
+		"name": "Braintree",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28993764",
+		"_collection_link": "https://intebtpp.postman.co/workspace/PPBT~3ae85c72-293c-4fdf-8ad0-804b885d4960/collection/28993764-077e2454-82c1-4047-8387-c1e351da2303?action=share&source=collection_link&creator=28993764"
+	},
+	"item": [
+		{
+			"name": "Query",
+			"item": [
+				{
+					"name": "Ping",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n  ping\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Schema",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n  __schema {\n    types {\n      name\n      description\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Node - Transaction",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n  node(id: \"dHJhbnNhY3Rpb25fYWp0OGQxbXg\") {\n    ... on Transaction {\n      status\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Node - Payment Method",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n  node(id: \"cGF5bWVudG1ldGhvZF9wcF8wMXk2Z2p5YQ\") {\n    ... on PaymentMethod {\n      id\n      usage\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IdFromLegacyId - Payment method",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query IdFromLegacyId($legacyId: ID!, $type: LegacyIdType!) {\n  idFromLegacyId(legacyId: $legacyId, type: $type)\n}",
+								"variables": "{\n  \"legacyId\": \"pys7wx7s\",\n  \"type\": \"PAYMENT_METHOD\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IdFromLegacyId - Transaction",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query IdFromLegacyId($legacyId: ID!, $type: LegacyIdType!) {\n  idFromLegacyId(legacyId: $legacyId, type: $type)\n}",
+								"variables": "{\n  \"legacyId\": \"ajt8d1mx\",\n  \"type\": \"TRANSACTION\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Transaction",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query myRequestTransactionSearchUpperThan($input: TransactionSearchInput!) {\n    search {\n      transactions(input: $input) {\n        edges {\n          node {\n            id\n            status\n            amount {\n              value\n              currencyCode\n            }\n          }\n        }\n      }\n    }\n  }",
+								"variables": "{\n    \"input\": {\n        \"id\": {\n            \"in\": [\n                \"dHJhbnNhY3Rpb25fYTNuNWFodzk\"\n            ]\n        }\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Customer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query PaymentMethod {\n  node(id: \"Y3VzdG9tZXJfNTg1ODg0NjM1MTY\"){\n    id\n    ... on Customer {\n      id\n      legacyId\n      email\n      paymentMethods{\n        edges{\n            node{\n                id\n                legacyId\n                details{\n                    ... on PayPalAccountDetails{\n                        email\n                        billingAgreementId\n                        payerId\n                    }\n                }\n            }\n        }\n      }\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Payment Method",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query PaymentMethod {\n  node(id: \"cGF5bWVudG1ldGhvZF9wcF9yZWJxYWN4aw\"){\n    id\n    ... on PaymentMethod {\n      id\n      legacyId\n      usage\n      createdAt\n      customer{\n        id\n        legacyId\n        email\n      }\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST - Installment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query myRequestTransactionSearchUpperThan($input: TransactionSearchInput!) {\n    search {\n      transactions(input: $input) {\n        edges {\n          node {\n            id\n            legacyId\n            status\n            installmentDetails{\n                count\n                installments{\n                    id\n                }\n            }\n            amount {\n              value\n              currencyCode\n            }\n          }\n        }\n      }\n    }\n  }",
+								"variables": "{\n    \"input\": {\n        \"id\": {\n            \"in\": [\n                \"dHJhbnNhY3Rpb25fa3FjOGM0bjQ\"\n            ]\n        }\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Transaction Amount",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query myRequestTransactionSearchUpperThan($input: TransactionSearchInput!) {\n    search {\n      transactions(input: $input) {\n        pageInfo {\n          hasNextPage\n          startCursor\n          endCursor\n        },\n        edges {\n          node {\n            id\n            status\n            amount {\n              value\n              currencyCode\n            }\n          }\n        }\n      }\n    }\n  }",
+								"variables": "{\n\t\"input\": {\n\t\t\"amount\": {\n\t\t\t\"value\": {\n\t\t\t\t\"greaterThanOrEqualTo\": \"10.00\"\n\t\t\t}\n\t\t},\n\t\t\"status\": {\n\t\t\t\"in\": [\n\t\t\t\t\"SETTLED\",\n\t\t\t\t\"VOIDED\"\n\t\t\t]\n\t\t}\n\t}\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Order ID TO FINISH !",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findNode($input: ID!) {\n  node(id: $input) {\n    ... on PaymentMethod {\n      details {\n        ... on PayPalAccountDetails {\n          firstName\n          lastName\n          email\n          payerId\n          shippingAddress {\n            fullName\n            locality\n            streetAddress\n            extendedAddress\n            countryCode\n            region\n          }\n          billingAddress {\n            fullName\n            locality\n            streetAddress\n            extendedAddress\n            countryCode\n            region\n          }\n          cobrandedCardLabel\n        }\n      }\n    }\n  }\n}\n",
+								"variables": "{\n  \"input\": \"cGF5bWVudG1ldGhvZF9wcF9yZWJxYWN4aw\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IdFromLegacyId - Disputes",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query IdFromLegacyId($legacyId: ID!, $type: LegacyIdType!) {\n  idFromLegacyId(legacyId: $legacyId, type: $type)\n}",
+								"variables": "{\n  \"legacyId\": \"hzp9d92b9d9skzgn\",\n  \"type\": \"DISPUTE\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Disputes on ID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetDisputes($input: DisputeSearchInput!) {\n  search {\n    disputes(input: $input) {\n      edges {\n        node {\n          id\n          caseNumber\n          amountDisputed {\n            value\n            currencyIsoCode\n          }\n          transaction{\n            lineItems{\n                name\n                kind\n                quantity\n                unitAmount\n              }\n          }\n          status\n          createdAt\n          type\n        }\n      }\n    }\n  }\n}\n",
+								"variables": "{\n  \"input\": {\n    \"id\": {\n      \"in\": [\"ZGlzcHV0ZV9oenA5ZDkyYjlkOXNremdu\"]\n    }\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Disputes on Case Number PP",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetDisputes($input: DisputeSearchInput!) {\n  search {\n    disputes(input: $input) {\n      edges {\n        node {\n          id\n          caseNumber\n          amountDisputed {\n            value\n            currencyIsoCode\n          }\n          transaction{\n            id\n            legacyId\n            orderId\n            lineItems{\n                name\n                kind\n                quantity\n                unitAmount\n              }\n          }\n          status\n          createdAt\n          type\n        }\n      }\n    }\n  }\n}\n",
+								"variables": "{\n  \"input\": {\n    \"caseNumber\": {\n      \"is\": \" PP-R-CZX-10104658\"\n    }\n  }\n}\n"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mutation",
+			"item": [
+				{
+					"name": "PayPal",
+					"item": [
+						{
+							"name": "BA with Purchase",
+							"item": [
+								{
+									"name": "createPayPalOneTimePayment BA with Purchase",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// ---> SEE COLLECTION PRE SCRIPT",
+													"",
+													"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+													"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+													"",
+													"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const responseData = pm.response.json();",
+													"",
+													"const approve = responseData.data.createPayPalOneTimePayment.approvalUrl;",
+													"const ECToken = approve.split('&token=')[1];",
+													"",
+													"pm.environment.set(\"payid\", responseData.data.createPayPalOneTimePayment.paymentId);",
+													"pm.environment.set(\"ectoken\", ECToken);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Braintree-Version",
+												"value": "2022-11-25",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic {{encodedKeys}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation createPayPalOneTimePayment($lucasInput: CreatePayPalOneTimePaymentInput!) {\n      createPayPalOneTimePayment(input: $lucasInput) {\n        paymentId,\n        approvalUrl\n      }\n    }",
+												"variables": "{\n  \"lucasInput\": {\n    \"amount\": {\n        \"value\": \"100.01\",\n        \"currencyCode\": \"EUR\"\n    },\n    \"intent\": \"SALE\",\n    \"returnUrl\": \"https://paypal.com/success\",\n    \"cancelUrl\": \"https://paypal.com/cancel\",\n    \"offerPayLater\" : false,\n    \"requestBillingAgreement\": true,\n    \"shippingAddress\": {\n        \"addressLine1\": \"700 Cuesta Dr\",\n        \"adminArea1\": \"CA\",\n        \"adminArea2\": \"Mountain View\",\n        \"postalCode\": \"94040\",\n        \"countryCode\": \"US\"\n    }\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "{{endpoint}}",
+											"host": [
+												"{{endpoint}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "tokenizePayPalBillingAgreement",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// ---> SEE COLLECTION PRE SCRIPT",
+													"",
+													"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+													"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+													"",
+													"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Braintree-Version",
+												"value": "2022-11-25",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic {{encodedKeys}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation tokenizePayPalBillingAgreement($lucasInput: TokenizePayPalBillingAgreementInput!) {\n      tokenizePayPalBillingAgreement(input: $lucasInput) {\n        paymentMethod{\n            id\n            usage\n            customer{\n                legacyId\n                email\n                firstName\n                lastName\n            }\n            legacyId,\n            details{\n                ... on PayPalAccountDetails{\n                    payerId,\n                    email\n                }\n            }\n        }\n      }\n    }",
+												"variables": "{\n    \"lucasInput\": {\n        \"billingAgreement\":{\n            \"billingAgreementToken\": \"BA-993298486S0741220\"\n        }\n    }\n}"
+											}
+										},
+										"url": {
+											"raw": "{{endpoint}}",
+											"host": [
+												"{{endpoint}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "vaultPaymentMethod",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// ---> SEE COLLECTION PRE SCRIPT",
+													"",
+													"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+													"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+													"",
+													"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Braintree-Version",
+												"value": "2022-11-25",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic {{encodedKeys}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation vaultPaymentMethod($lucasInput: VaultPaymentMethodInput!) {\n      vaultPaymentMethod(input: $lucasInput) {\n        paymentMethod {\n          id\n          legacyId\n          usage\n          createdAt\n        }\n      }\n    }",
+												"variables": "{\n    \"lucasInput\": {\n        \"paymentMethodId\": \"779b042a-21b1-11ac-10c5-e053f075ce15\",\n        \"customerId\": \"58588463516\"\n    }\n}"
+											}
+										},
+										"url": {
+											"raw": "{{endpoint}}",
+											"host": [
+												"{{endpoint}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "chargePaymentMethod",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// ---> SEE COLLECTION PRE SCRIPT",
+													"",
+													"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+													"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+													"",
+													"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Braintree-Version",
+												"value": "2022-11-25",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic {{encodedKeys}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation chargePaymentMethod($lucasInput: ChargePaymentMethodInput!) {\n      chargePaymentMethod(input: $lucasInput) {\n        transaction {\n          id\n          legacyId\n          status\n          amount{\n              value\n          },\n          customer{\n            id,\n            legacyId\n          },\n          paymentMethod{\n            legacyId,\n            details{\n                ... on PayPalAccountDetails{\n                    payerId,\n                    email\n                }\n            }\n          }\n        }\n      }\n    }",
+												"variables": "{\n    \"lucasInput\": {\n      \"paymentMethodId\": \"cGF5bWVudG1ldGhvZF9wcF9yZWJxYWN4aw\",\n      \"transaction\": {\n        \"amount\": \"22.22\"\n      }\n    }\n  }"
+											}
+										},
+										"url": {
+											"raw": "{{endpoint}}",
+											"host": [
+												"{{endpoint}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "createPayPalOneTimePayment",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// ---> SEE COLLECTION PRE SCRIPT",
+											"",
+											"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+											"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+											"",
+											"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"",
+											"const approve = responseData.data.createPayPalOneTimePayment.approvalUrl;",
+											"const ECToken = approve.split('&token=')[1];",
+											"",
+											"pm.environment.set(\"payid\", responseData.data.createPayPalOneTimePayment.paymentId);",
+											"pm.environment.set(\"ectoken\", ECToken);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Braintree-Version",
+										"value": "2022-11-25",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic {{encodedKeys}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation createPayPalOneTimePayment($lucasInput: CreatePayPalOneTimePaymentInput!) {\n      createPayPalOneTimePayment(input: $lucasInput) {\n        paymentId,\n        approvalUrl\n      }\n    }",
+										"variables": "{\n  \"lucasInput\": {\n    \"amount\": {\n        \"value\": \"100.01\",\n        \"currencyCode\": \"EUR\"\n    },\n    \"intent\": \"SALE\",\n    \"returnUrl\": \"https://paypal.com/success\",\n    \"cancelUrl\": \"https://paypal.com/cancel\",\n    \"offerPayLater\" : false,\n    \"shippingAddress\": {\n        \"addressLine1\": \"700 Cuesta Dr\",\n        \"adminArea1\": \"CA\",\n        \"adminArea2\": \"Mountain View\",\n        \"postalCode\": \"94040\",\n        \"countryCode\": \"US\"\n    }\n  }\n}"
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}",
+									"host": [
+										"{{endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createPayPalOneTimePayment BNPL",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// ---> SEE COLLECTION PRE SCRIPT",
+											"",
+											"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+											"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+											"",
+											"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"",
+											"const approve = responseData.data.createPayPalOneTimePayment.approvalUrl;",
+											"const ECToken = approve.split('&token=')[1];",
+											"",
+											"pm.environment.set(\"payid\", responseData.data.createPayPalOneTimePayment.paymentId);",
+											"pm.environment.set(\"ectoken\", ECToken);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Braintree-Version",
+										"value": "2022-11-25",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic {{encodedKeys}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation createPayPalOneTimePayment($lucasInput: CreatePayPalOneTimePaymentInput!) {\n      createPayPalOneTimePayment(input: $lucasInput) {\n        paymentId,\n        approvalUrl \n      }\n    }",
+										"variables": "{\n  \"lucasInput\": {\n    \"amount\": {\n        \"value\": \"100.01\",\n        \"currencyCode\": \"EUR\"\n    },\n    \"intent\": \"SALE\",\n    \"returnUrl\": \"https://paypal.com/success\",\n    \"cancelUrl\": \"https://paypal.com/cancel\",\n    \"offerPayLater\" : true,\n    \"shippingAddress\": {\n        \"addressLine1\": \"700 Cuesta Dr\",\n        \"adminArea1\": \"CA\",\n        \"adminArea2\": \"Mountain View\",\n        \"postalCode\": \"94040\",\n        \"countryCode\": \"US\"\n    }\n  }\n}"
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}",
+									"host": [
+										"{{endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createPayPalOneTimePayment BA",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// ---> SEE COLLECTION PRE SCRIPT",
+											"",
+											"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+											"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+											"",
+											"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"",
+											"const approve = responseData.data.createPayPalOneTimePayment.approvalUrl;",
+											"const ECToken = approve.split('&token=')[1];",
+											"",
+											"pm.environment.set(\"payid\", responseData.data.createPayPalOneTimePayment.paymentId);",
+											"pm.environment.set(\"ectoken\", ECToken);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Braintree-Version",
+										"value": "2022-11-25",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic {{encodedKeys}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation createPayPalOneTimePayment($lucasInput: CreatePayPalOneTimePaymentInput!) {\n      createPayPalOneTimePayment(input: $lucasInput) {\n        paymentId,\n        approvalUrl \n      }\n    }",
+										"variables": "{\n  \"lucasInput\": {\n    \"amount\": {\n        \"value\": \"100.01\",\n        \"currencyCode\": \"EUR\"\n    },\n    \"intent\": \"ORDER\",\n    \"returnUrl\": \"https://paypal.com/success\",\n    \"cancelUrl\": \"https://paypal.com/cancel\",\n    \"offerPayLater\" : false,\n    \"shippingAddress\": {\n        \"addressLine1\": \"700 Cuesta Dr\",\n        \"adminArea1\": \"CA\",\n        \"adminArea2\": \"Mountain View\",\n        \"postalCode\": \"94040\",\n        \"countryCode\": \"US\"\n    },\n    \"requestBillingAgreement\": true,\n    \"billingAgreementDescription\": \"BA generated through GraphQL on POSTMAN\"\n  }\n}"
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}",
+									"host": [
+										"{{endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TokenizePayPalOneTimePayment",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// ---> SEE COLLECTION PRE SCRIPT",
+											"",
+											"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+											"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+											"",
+											"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Braintree-Version",
+										"value": "2022-11-25",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic {{encodedKeys}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation tokenizePayPalOneTimePayment($lucasInput: TokenizePayPalOneTimePaymentInput!) {\n      tokenizePayPalOneTimePayment(input: $lucasInput) {\n        paymentMethod{\n            id\n            usage\n            customer{\n                legacyId\n                email\n                firstName\n                lastName\n            }\n        }\n      }\n    }",
+										"variables": "{\n    \"lucasInput\": {\n        \"merchantAccountId\": \"lugapi\",\n        \"paypalOneTimePayment\": {\n            \"paymentId\": \"PAYID-M6MKS2Y4X8144877W126570L\",\n            \"paymentToken\": \"PAYID-M6MKS2Y4X8144877W126570L\",\n            \"payerId\": \"VZXB2A7V9Y9JY\"\n        }\n    }\n}"
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}",
+									"host": [
+										"{{endpoint}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "createClientToken",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ExampleClientToken($input: CreateClientTokenInput) {\n  createClientToken(input: $input) {\n    clientToken\n  }\n}",
+								"variables": "{\n  \"input\": {\n    \"clientToken\": {\n      \"merchantAccountId\": \"lugapi\",\n      \"customerId\":\"198438022\"\n    }\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chargePaymentMethod",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation chargePaymentMethod($lucasInput: ChargePaymentMethodInput!) {\n      chargePaymentMethod(input: $lucasInput) {\n        transaction {\n          id\n          legacyId\n          status\n          amount{\n              value\n          }\n        }\n      }\n    }",
+								"variables": "{\n    \"lucasInput\": {\n      \"paymentMethodId\": \"e11ea94b-374f-15d7-0e10-a4c40d05642c\",\n      \"transaction\": {\n        \"amount\": \"22.22\"\n      }\n    }\n  }"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chargePaymentMethod TOKEN",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation chargePaymentMethod($lucasInput: ChargePaymentMethodInput!) {\n      chargePaymentMethod(input: $lucasInput) {\n        transaction {\n          id\n          legacyId\n          status\n          amount{\n              value\n          }\n        }\n      }\n    }",
+								"variables": "{\n    \"lucasInput\": {\n      \"paymentMethodId\": \"cGF5bWVudG1ldGhvZF9jY19neDdndGtjaA\",\n      \"transaction\": {\n        \"amount\": \"6\"\n      }\n    }\n  }"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Two ChargePaymentMethod",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation twoChargesAtOnce($tx1: ChargePaymentMethodInput!, $tx2: ChargePaymentMethodInput!) {\n    firstTransaction: chargePaymentMethod(input: $tx1) {\n      transaction {\n        amount { value currencyIsoCode }\n      }\n    }\n    secondTransaction: chargePaymentMethod(input: $tx2) {\n      transaction {\n        amount { value currencyIsoCode }\n      }\n    }\n  }",
+								"variables": "{\n    \"tx1\": {\n      \"paymentMethodId\": \"fake-valid-visa-nonce\",\n      \"transaction\": {\n        \"amount\": \"11.25\"\n      }\n    },\n    \"tx2\": {\n      \"paymentMethodId\": \"fake-valid-visa-nonce\",\n      \"transaction\": {\n        \"amount\": \"11.23\"\n      }\n    }\n  }"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VaultPaymentMethod",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation vaultPaymentMethod($lucasInput: VaultPaymentMethodInput!) {\n      vaultPaymentMethod(input: $lucasInput) {\n        paymentMethod {\n          id\n          legacyId\n          usage\n          createdAt\n        }\n      }\n    }",
+								"variables": "{\n    \"lucasInput\": {\n        \"paymentMethodId\": \"fake-paypal-one-time-nonce\",\n        \"customerId\": \"58588463516\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refund",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ---> SEE COLLECTION PRE SCRIPT",
+									"",
+									"//let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+									"//let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"//pm.environment.set(\"encodedKeys\", encodedKeys);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation refundTransaction($lucasInput: RefundTransactionInput!) {\n      refundTransaction(input: $lucasInput) {\n        refund {\n          id\n          legacyId\n          status\n          amount{\n              value\n          }\n        }\n      }\n    }",
+								"variables": "{\n    \"lucasInput\": {\n      \"transactionId\": \"gjft562f\",\n      \"refund\": {\n        \"amount\": \"10\",\n        \"orderId\": \"testRefundGraph\"\n      }\n    }\n  }"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{encodedKeys}}",
+								"type": "text"
+							},
+							{
+								"key": "Braintree-Version",
+								"value": "2022-11-25",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation test($input: ChargePaymentMethodInput!){\n    chargePaymentMethod(input: $input){\n        transaction {\n            id\n            legacyId\n        }\n    }\n}",
+								"variables": "{\n    \"input\":{\n        \"paymentMethodId\": \"cGF5bWVudG1ldGhvZF9jY183a2R6eDQ1Mw\",\n        \"transaction\": {\n            \"amount\": \"10\"\n        }\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}",
+							"host": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"let keys = pm.environment.get(\"public\") + \":\" + pm.environment.get(\"secret\");",
+					"let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+					"",
+					"pm.environment.set(\"encodedKeys\", encodedKeys);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

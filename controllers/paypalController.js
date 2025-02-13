@@ -147,7 +147,7 @@ const vaultPaymentMethod = async (req, res) => {
         {
             "lucasInput": {
                     "paymentMethodId": "${req.body.paymentMethodId}",
-                    "customerId": "58588463516"
+                    "customerId": "${process.env.BRAINTREE_CUSTOMER_ID}"
             }
         }
     `)
