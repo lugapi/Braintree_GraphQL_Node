@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const port = 3003;
 const { ping } = require('./controllers/testController');
-const { createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, vaultPaymentMethod } = require('./controllers/paypalController');
+const { createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, vaultPaymentMethod, findCustomerPM } = require('./controllers/paypalController');
 
 // Définir EJS comme moteur de templates
 app.set('view engine', 'ejs');
@@ -48,6 +48,11 @@ app.post('/paypal-vault-pm', async (req, res) => {
 app.post('/paypal-returning', async (req, res) => {
     chargePaymentMethod(req, res)
 });
+
+app.post('/paypal-find-customerPM', async (req, res) => {
+    findCustomerPM(req, res)
+});
+
 
 app.listen(port, () => {
     console.log(`Serveur en écoute sur http://localhost:${port}`);
