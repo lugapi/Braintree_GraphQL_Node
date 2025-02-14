@@ -8,6 +8,10 @@
         <%= title %>
     </title>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         .ppBtn {
             transition: all 0.2s;
             background-color: #FFC439;
@@ -51,16 +55,18 @@
                 CUSTOMER PM!</button>
         </div>
 
-        <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Les cartes seront injectées ici -->
-        </div>
-
-        <div class="result customer bg-blue-100 p-4 rounded-lg shadow-md hidden">
-            <pre class="bg-white p-2 rounded-md"></pre>
+        <div class="results flex gap-2">
+            <div id="cards-container" class="grid grid-cols-1 gap-6">
+                <!-- Les cartes seront injectées ici -->
+            </div>
+            
+            <div class="result customer bg-blue-100 p-4 rounded-lg shadow-md hidden">
+                <pre class="bg-white p-2 rounded-md"></pre>
+            </div>
         </div>
 
         <div class="jsonContent" id="jsoneditor"></div>
-        <button class="ppBtn flex items-center justify-start hidden" onclick="callGraphQL()">
+        <button id="ppBtn" class="ppBtn flex items-center justify-start hidden" onclick="callGraphQL()">
             <svg width="507" height="55" viewBox="0 0 507 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="507" height="55" rx="4" fill="#FFC439" />
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -190,6 +196,7 @@
                 varToSend.variables.lucasInput.paymentMethodId = vaultId
                 editor.set(varToSend)
                 editor.expandAll();
+                document.getElementById("ppBtn").scrollIntoView();
             };
 
             // Ajoutez la carte au conteneur
