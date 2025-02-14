@@ -31,7 +31,8 @@
         <h1>
             <%= title %>
         </h1>
-        <a href="https://developer.paypal.com/braintree/graphql/reference" class="text-blue-700 hover:underline" target="_blank">GraphQL reference</a>
+        <a href="https://developer.paypal.com/braintree/graphql/reference" class="text-blue-700 hover:underline"
+            target="_blank">GraphQL reference</a>
         <div class="jsonContent" id="jsoneditor"></div>
         <div class="ppBtnDiv flex justify-center w-full p-5">
             <div class="ppBtn" onclick="callGraphQL()">
@@ -69,7 +70,7 @@
                     <label class="block text-gray-700">
                         Billing Agreement retrieved in the return URL :
                     </label>
-                    <input type="text" class="border p-2 mt-2 w-full rounded-md">
+                    <input type="text" class="border p-2 mt-2 w-full rounded-md bg-white">
                     <button onclick="tokenizeBA()"
                         class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Tokenize
                         !</button>
@@ -85,17 +86,21 @@
                     <label class="block text-gray-700">
                         Payment Method Id to Vault :
                     </label>
-                    <input type="text" class="border p-2 mt-2 w-full rounded-md">
+                    <input type="text" class="border p-2 mt-2 w-full rounded-md bg-white">
                     <button onclick="vaultPM()"
                         class="mt-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">Vault
                         !</button>
-                    </div>
-                    
-                    <div class="result vault mt-4">
-                        <pre class="bg-white p-2 rounded-md"></pre>
-                    </div>
+                </div>
+
+                <div class="result vault mt-4">
+                    <pre class="bg-white p-2 rounded-md"></pre>
                 </div>
             </div>
+
+            <div class="bg-orange-100 p-4 rounded-lg shadow-md flex">
+                <a id="returningLink" target="_blank" href="/returning" class="text-blue-700 hover:underline">Returning Flow</a>
+            </div>
+        </div>
     </div>
 </body>
 <script>
@@ -203,6 +208,8 @@
         const result = await response.json();
         console.log(result);
         document.querySelector('.result.vault pre').innerHTML = JSON.stringify(result, null, 2);
+        document.getElementById("returningLink").innerText += ` with customer ${result.data.vaultPaymentMethod.paymentMethod.customer.id}`
+        document.getElementById("returningLink").href += `?custId=${result.data.vaultPaymentMethod.paymentMethod.customer.id}`
 
         if (result.error) {
             alert('Erreur : ' + result.error);

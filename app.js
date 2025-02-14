@@ -19,11 +19,12 @@ app.get('/ping', ping);
 
 // Render page
 app.get('/', (req, res) => {
-    res.render('index', { title: 'Test Braintree GraphQL', doc:'https://developer.paypal.com/braintree/graphql/reference' });
+    res.render('index', { title: 'Test Braintree GraphQL', doc: 'https://developer.paypal.com/braintree/graphql/reference' });
 });
 
 app.get('/returning', (req, res) => {
-    res.render('returning', { title: 'Returning flow' });
+    const custId = req.query?.custId
+    res.render('returning', { title: 'Returning flow', custId: custId });
 });
 
 

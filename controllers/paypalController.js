@@ -138,6 +138,10 @@ const vaultPaymentMethod = async (req, res) => {
                     legacyId
                     usage
                     createdAt
+                    customer{
+                        id
+                        legacyId
+                    }
                 }
             }
         }

@@ -15,9 +15,6 @@
             border: 0px;
             border-radius: 4px;
             margin: 2%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
         }
 
         .ppBtn:hover {
@@ -47,8 +44,7 @@
                 <label class="flex text-gray-700">
                     Customer ID :
                 </label>
-                <input type="text" class="border p-2 mt-2 w-full rounded-md" id="custId"
-                value="Y3VzdG9tZXJfNTg1ODg0NjM1MTY">
+                <input type="text" class="border p-2 mt-2 w-full rounded-md" id="custId" value=<%=custId %>>
             </div>
             <button onclick="findCustomerPM()"
                 class="mt-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">FIND
@@ -64,7 +60,7 @@
         </div>
 
         <div class="jsonContent" id="jsoneditor"></div>
-        <button class="ppBtn" onclick="callGraphQL()">
+        <button class="ppBtn flex items-center justify-start hidden" onclick="callGraphQL()">
             <svg width="507" height="55" viewBox="0 0 507 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="507" height="55" rx="4" fill="#FFC439" />
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -186,7 +182,9 @@
             `;
 
             // Ajoutez un événement onclick pour afficher une alerte avec le vaultId
-            card.onclick = function() {
+            card.onclick = function () {
+                document.getElementById("emailOnButton").innerText = edge.node.details.email;
+                document.querySelector(".ppBtn").classList.remove('hidden');
                 // alert(`Vault ID: ${vaultId}`);
                 let varToSend = editor.get()
                 varToSend.variables.lucasInput.paymentMethodId = vaultId
