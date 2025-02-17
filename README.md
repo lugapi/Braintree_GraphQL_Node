@@ -11,6 +11,7 @@ Welcome to the Braintree GraphQL API demonstration repository! This project aims
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
+- [Screenshots](#screenshots)
 
 ## Introduction
 
@@ -77,3 +78,15 @@ If needed, update the JSON configuration files with any specific data required f
 - Initiate PayPal Vaulting:
 
 Click on the PayPal button and follow the on-screen instructions to complete the vaulting process. This will demonstrate how payment information is securely stored for future use.
+
+
+### Screenshots
+
+- First time :
+
+![firstime](./screenshots/firstime.png)
+
+- Returning :
+
+![returning1](./screenshots/returning1.png)
+![returning2](./screenshots/returning2.png)
