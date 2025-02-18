@@ -55,43 +55,53 @@
                 CUSTOMER PM!</button>
         </div>
 
-        <div class="results flex gap-2">
-            <div id="cards-container" class="grid grid-cols-1 gap-6">
-                <!-- Les cartes seront injectées ici -->
+        <div class="results flex flex-col lg:flex-row gap-2">
+            <div id="vaultListSection" class="flex flex-col gap-2 hidden">
+                <h2 class="text-2xl font-extrabold dark:text-white">Payment Method Vaulted list:</h2>
+                <div id="cards-container" class="grid grid-cols-1 gap-6">
+                    <!-- Les cartes seront injectées ici -->
+                </div>
             </div>
             
-            <div class="result customer bg-blue-100 p-4 rounded-lg shadow-md hidden">
-                <pre class="bg-white p-2 rounded-md"></pre>
+            <div id="fullResponseSection" class="flex flex-col gap-2 hidden">                
+                <h2 class="text-2xl font-extrabold dark:text-white">Full response:</h2>
+                <div class="result customer bg-blue-100 p-4 rounded-lg shadow-md hidden">
+                    <pre class="bg-white p-2 rounded-md"></pre>
+                </div>
             </div>
         </div>
 
-        <div class="jsonContent" id="jsoneditor"></div>
-        <button id="ppBtn" class="ppBtn flex items-center justify-start hidden" onclick="callGraphQL()">
-            <svg width="507" height="55" viewBox="0 0 507 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="507" height="55" rx="4" fill="#FFC439" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
+        
+        <div id="createTrxSection" class="flex flex-col gap-4 hidden">
+            <h2 class="text-2xl font-extrabold dark:text-white">Create the transaction: </h2>
+            <div class="jsonContent" id="jsoneditor"></div>
+            <button id="ppBtn" class="ppBtn flex items-center justify-start hidden" onclick="callGraphQL()">
+                <svg width="507" height="55" viewBox="0 0 507 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="507" height="55" rx="4" fill="#FFC439" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M292.85 17.4502L290.25 34.7002C290.2 35.0502 290.45 35.3502 290.75 35.3502H293.35C293.8 35.3502 294.15 35.0002 294.2 34.6002L296.75 17.7002C296.8 17.3502 296.55 17.0502 296.25 17.0502H293.3C293.1 17.0002 292.9 17.2002 292.85 17.4502Z"
                     fill="#009CDE" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
+                    <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M284.6 29.1501C284.3 30.9001 282.85 32.1001 281.05 32.1001C280.15 32.1001 279.4 31.8001 278.95 31.2501C278.5 30.7001 278.3 29.9501 278.45 29.1001C278.75 27.3501 280.2 26.1501 281.95 26.1501C282.85 26.1501 283.55 26.4501 284.05 27.0001C284.5 27.5001 284.7 28.3001 284.6 29.1501ZM288.95 23.1501H285.8C285.55 23.1501 285.3 23.3501 285.25 23.6001L285.1 24.4501L284.9 24.1501C284.2 23.2001 282.7 22.8501 281.2 22.8501C277.75 22.8501 274.75 25.4001 274.2 29.0501C273.9 30.8501 274.35 32.5501 275.35 33.7501C276.3 34.8501 277.7 35.3001 279.3 35.3001C282.1 35.3001 283.65 33.5501 283.65 33.5501L283.5 34.4001C283.45 34.7001 283.7 35.0001 284.05 35.0001H286.9C287.35 35.0001 287.75 34.7001 287.8 34.2501L289.5 23.7501C289.55 23.4501 289.3 23.1501 288.95 23.1501Z"
                     fill="#009CDE" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
+                    <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M270.5 23.2C270.15 25.55 268.3 25.55 266.55 25.55H265.55L266.25 21.15C266.3 20.9 266.55 20.7 266.8 20.7H267.25C268.45 20.7 269.6 20.7 270.2 21.4C270.55 21.75 270.65 22.35 270.5 23.2ZM269.75 17H263.05C262.6 17 262.2 17.35 262.15 17.75L259.45 34.65C259.4 35 259.65 35.3 260 35.3H263.45C263.75 35.3 264.05 35.05 264.1 34.75L264.85 29.95C264.9 29.5 265.3 29.2 265.75 29.2H267.85C272.25 29.2 274.8 27.1 275.45 22.95C275.75 21.15 275.45 19.7 274.6 18.7C273.65 17.6 271.95 17 269.75 17Z"
                     fill="#009CDE" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
+                    <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M258.9 22.8501H255.7C255.4 22.8501 255.1 23.0001 254.95 23.2501L250.5 29.5501L248.6 23.5001C248.5 23.1001 248.1 22.8501 247.7 22.8501H244.55C244.15 22.8501 243.9 23.2001 244 23.5501L247.55 33.6001L244.25 38.1501C244 38.5001 244.3 39.0001 244.75 39.0001H247.95C248.25 39.0001 248.55 38.8501 248.7 38.6001L259.35 23.7001C259.6 23.3501 259.35 22.8501 258.9 22.8501Z"
                     fill="#003087" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
+                    <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M237.65 29.1501C237.35 30.9001 235.9 32.1001 234.1 32.1001C233.2 32.1001 232.45 31.8001 232 31.2501C231.55 30.7001 231.35 29.9501 231.5 29.1001C231.8 27.3501 233.25 26.1501 235 26.1501C235.9 26.1501 236.6 26.4501 237.1 27.0001C237.6 27.5001 237.8 28.3001 237.65 29.1501ZM242 23.1501H238.85C238.6 23.1501 238.35 23.3501 238.3 23.6001L238.15 24.4501L238 24.1501C237.3 23.2001 235.8 22.8501 234.3 22.8501C230.85 22.8501 227.85 25.4001 227.3 29.0501C227 30.8501 227.45 32.5501 228.45 33.7501C229.4 34.8501 230.8 35.3001 232.4 35.3001C235.2 35.3001 236.75 33.5501 236.75 33.5501L236.6 34.4001C236.55 34.7001 236.8 35.0001 237.15 35.0001H240C240.45 35.0001 240.85 34.7001 240.9 34.2501L242.6 23.7501C242.6 23.4501 242.35 23.1501 242 23.1501Z"
                     fill="#003087" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
+                    <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M223.55 23.2C223.2 25.55 221.35 25.55 219.6 25.55H218.6L219.3 21.15C219.35 20.9 219.6 20.7 219.85 20.7H220.3C221.5 20.7 222.65 20.7 223.25 21.4C223.6 21.75 223.7 22.35 223.55 23.2ZM222.8 17H216.1C215.65 17 215.3 17.35 215.2 17.75L212.5 34.7C212.45 35.05 212.7 35.35 213.05 35.35H216.25C216.7 35.35 217.1 35 217.15 34.6L217.9 30.05C217.95 29.6 218.35 29.3 218.8 29.3H220.9C225.3 29.3 227.85 27.2 228.5 23.05C228.8 21.25 228.5 19.8 227.65 18.8C226.7 17.6 225.05 17 222.8 17Z"
                     fill="#003087" />
-            </svg>
-            <span id="emailOnButton" class="px-10">
-                test@test.com
-            </span>
-        </button>
+                </svg>
+                <span id="emailOnButton" class="px-10">
+                    test@test.com
+                </span>
+            </button>
+        </div>
 
         <div class="result trx bg-blue-100 p-4 rounded-lg shadow-md hidden">
             <pre></pre>
@@ -144,9 +154,10 @@
         if (result.error) {
             alert('Erreur : ' + result.error);
             // redirect customer on custom page
-        } else {
-            alert('Transaction réussie !');
-        }
+        } 
+        // else {
+        //     alert('Transaction réussie !');
+        // }
     }
 
 
@@ -165,6 +176,8 @@
         });
 
         const result = await response.json();
+        document.querySelector('#vaultListSection').classList.remove('hidden')
+        document.querySelector('#fullResponseSection').classList.remove('hidden')
         document.querySelector('.result.customer').classList.remove('hidden')
         document.querySelector('.result.customer pre').innerHTML = JSON.stringify(result, null, 2);
 
@@ -196,6 +209,7 @@
                 varToSend.variables.lucasInput.paymentMethodId = vaultId
                 editor.set(varToSend)
                 editor.expandAll();
+                document.getElementById("createTrxSection").classList.remove('hidden');
                 document.getElementById("ppBtn").scrollIntoView();
             };
 
@@ -207,9 +221,10 @@
         if (result.error) {
             alert('Erreur : ' + result.error);
             // redirect customer on custom page
-        } else {
-            alert('Mutation GraphQL réussie !');
-        }
+        } 
+        // else {
+        //     alert('Mutation GraphQL réussie !');
+        // }
     }
 </script>
 
