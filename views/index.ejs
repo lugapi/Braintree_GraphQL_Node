@@ -62,14 +62,23 @@
 
         <div id="resultsAndActions" class="flex flex-col gap-4 p-4 hidden">
             <div class="result create bg-yellow-100 p-4 rounded-lg shadow-md">
+                <label class="block text-gray-700">
+                    Create one time payment result
+                </label>
+                <a class="text-sm italic hover:underline text-blue-500" target="_blank"
+                    href="https://developer.paypal.com/braintree/graphql/reference#Mutation--createPayPalOneTimePayment">createPayPalOneTimePayment
+                    mutation</a>
                 <pre class="bg-white p-2 rounded-md"></pre>
             </div>
 
             <div class="bg-red-100 p-4 rounded-lg shadow-md">
                 <div class="BaToVault">
                     <label class="block text-gray-700">
-                        Billing Agreement retrieved in the return URL :
+                        Billing Agreement retrieved in the return URL.
                     </label>
+                    <a class="text-sm italic hover:underline text-blue-500" target="_blank"
+                        href="https://developer.paypal.com/braintree/graphql/reference#Mutation--tokenizePayPalBillingAgreement">tokenizePayPalBillingAgreement
+                        mutation</a>
                     <input type="text" class="border p-2 mt-2 w-full rounded-md bg-white">
                     <button onclick="tokenizeBA()"
                         class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Tokenize
@@ -86,6 +95,9 @@
                     <label class="block text-gray-700">
                         Payment Method Id to Vault :
                     </label>
+                    <a class="text-sm italic hover:underline text-blue-500" target="_blank"
+                    href="https://developer.paypal.com/braintree/graphql/reference#Mutation--vaultPaymentMethod">vaultPaymentMethod
+                    mutation</a>
                     <input type="text" class="border p-2 mt-2 w-full rounded-md bg-white">
                     <button onclick="vaultPM()"
                         class="mt-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">Vault
@@ -98,7 +110,8 @@
             </div>
 
             <div class="bg-orange-100 p-4 rounded-lg shadow-md flex">
-                <a id="returningLink" target="_blank" href="/returning" class="text-blue-700 hover:underline">Returning Flow</a>
+                <a id="returningLink" target="_blank" href="/returning" class="text-blue-700 hover:underline">Returning
+                    Flow</a>
             </div>
         </div>
     </div>
@@ -186,7 +199,7 @@
         if (result.error) {
             alert('Erreur : ' + result.error);
             // redirect customer on custom page
-        } 
+        }
         // else {
         //     alert('Mutation GraphQL réussie !');
         // }
@@ -215,7 +228,7 @@
         if (result.error) {
             alert('Erreur : ' + result.error);
             // redirect customer on custom page
-        } 
+        }
         // else {
         //     alert('Mutation GraphQL réussie !');
         // }
