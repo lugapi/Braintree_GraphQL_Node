@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 3003;
+const port = process.env.PORT || 3333;
 const path = require('path');
 const { ping } = require('./controllers/testController');
 const { createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, vaultPaymentMethod, findCustomerPM } = require('./controllers/paypalController');
