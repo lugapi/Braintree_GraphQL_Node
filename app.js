@@ -2,8 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = 3003;
+const path = require('path');
 const { ping } = require('./controllers/testController');
 const { createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, vaultPaymentMethod, findCustomerPM } = require('./controllers/paypalController');
+
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Définir EJS comme moteur de templates
 app.set('view engine', 'ejs');

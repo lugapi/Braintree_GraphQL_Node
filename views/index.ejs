@@ -7,16 +7,7 @@
     <title>
         <%= title %>
     </title>
-    <style>
-        .ppBtn {
-            transition: all 0.2s;
-        }
-
-        .ppBtn:hover {
-            opacity: 0.6;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.7.4/jsoneditor.min.js"
         integrity="sha512-KQaWlVsZF0iPXCR8p176hVrg/rlw+smy8dpJ+vwiuvoHyGr8PTVvaAV4ZmsAYdCvMRP8e3sB9pl1mRuaunaXrg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -96,8 +87,8 @@
                         Payment Method Id to Vault :
                     </label>
                     <a class="text-sm italic hover:underline text-blue-500" target="_blank"
-                    href="https://developer.paypal.com/braintree/graphql/reference#Mutation--vaultPaymentMethod">vaultPaymentMethod
-                    mutation</a>
+                        href="https://developer.paypal.com/braintree/graphql/reference#Mutation--vaultPaymentMethod">vaultPaymentMethod
+                        mutation</a>
                     <input type="text" class="border p-2 mt-2 w-full rounded-md bg-white">
                     <button onclick="vaultPM()"
                         class="mt-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">Vault

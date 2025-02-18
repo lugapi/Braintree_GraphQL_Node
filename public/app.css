@@ -1,0 +1,18 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.ppBtn {
+    transition: all 0.2s;
+    background-color: #FFC439;
+    /* width: 50%; */
+    border: 0px;
+    border-radius: 4px;
+    margin: 2%;
+}
+
+.ppBtn:hover {
+    /* opacity: 0.6; */
+    filter: brightness(0.95);
+    cursor: pointer;
+}
