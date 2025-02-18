@@ -12,7 +12,30 @@ html {
 }
 
 .ppBtn:hover {
-    /* opacity: 0.6; */
     filter: brightness(0.95);
     cursor: pointer;
+}
+
+.github-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    /* background-color: #24292e;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+    z-index: 1000;
+}
+
+.github-button img {
+    width: 30px;
+    height: 30px;
+}
+
+.github-button:hover img {
+    opacity: 0.6;
 }
