@@ -19,6 +19,20 @@ const json = {
     }
 }
 
+const vaultSelection = document.querySelector("#vaultSelection #check");
+vaultSelection.addEventListener('change', () => {
+    let varToSend = editor.get()
+    if(vaultSelection.checked){
+        console.log('checked')
+        varToSend.variables.lucasInput.requestBillingAgreement = true
+    }else{
+        console.log('unchecked')
+        varToSend.variables.lucasInput.requestBillingAgreement = false
+    }
+    editor.set(varToSend)
+    editor.expandAll();
+});
+
 const container = document.getElementById("jsoneditor");
 const options = {
     modes: ["text", "code", "tree", "form", "view"],
