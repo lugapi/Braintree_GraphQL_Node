@@ -11,7 +11,7 @@ html {
     /* margin: 2%; */
 }
 
-.ppBtn:hover {
+.ppBtn:hover, #vaultSelection, #vaultSelection #check, #vaultSelection label {
     filter: brightness(0.95);
     cursor: pointer;
 }

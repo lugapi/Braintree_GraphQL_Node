@@ -18,8 +18,8 @@
 </head>
 
 <body>
-    <div class="container mx-auto flex flex-col items-center">
-        <h1>
+    <div class="container mx-auto flex flex-col gap-4 p-2 items-center">
+        <h1 class="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
             <%= title %>
         </h1>
         <a href="https://developer.paypal.com/braintree/graphql/reference" class="text-blue-700 hover:underline"
@@ -53,7 +53,7 @@
                 <div id="vaultSelection" class="flex items-center">
                     <input id="check" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring
                 blue-500" checked>
-                    <label for="check" class="ml-2 text-sm font-medium text-gray-900">Vault my account for future purchase</label>
+                    <label for="check" class="ml-2 text-sm font-medium text-gray-900">Save my account for future purchase</label>
                 </div>
             </div>
         </div>
