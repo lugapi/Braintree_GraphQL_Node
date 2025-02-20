@@ -46,7 +46,7 @@ const editor = new JSONEditor(container, options);
 editor.set(json)
 editor.expandAll();
 
-async function callGraphQL() {
+async function firstTime() {
     jsonToSend = editor.get();
     const response = await fetch('/paypal-create-transaction', {
         method: 'POST',

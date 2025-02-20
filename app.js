@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 3333;
 const path = require('path');
 const { ping } = require('./controllers/testController');
-const { createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, vaultPaymentMethod, findCustomerPM } = require('./controllers/paypalController');
+const { createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, tokenizePayPalOneTimePayment, vaultPaymentMethod, findCustomerPM } = require('./controllers/paypalController');
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -45,12 +45,16 @@ app.post('/paypal-tokenize-ba', async (req, res) => {
     tokenizePayPalBillingAgreement(req, res)
 });
 
+app.post('/paypal-tokenize-onetime', async (req, res) => {
+    tokenizePayPalOneTimePayment(req, res)
+});
+
 app.post('/paypal-vault-pm', async (req, res) => {
     vaultPaymentMethod(req, res)
 });
 
 // Route pour gérer le clic sur le bouton PayPal
-app.post('/paypal-returning', async (req, res) => {
+app.post('/paypal-charge-pm', async (req, res) => {
     chargePaymentMethod(req, res)
 });
 

@@ -126,6 +126,77 @@ const tokenizePayPalBillingAgreement = async (req, res) => {
     }
 };
 
+const tokenizePayPalOneTimePayment = async (req, res) => {
+
+    // Création du payload pour la mutation GraphQL
+    const requestPayload = JSON.stringify({
+        query: `
+            mutation tokenizePayPalOneTimePayment($lucasInput: TokenizePayPalOneTimePaymentInput!) {
+            tokenizePayPalOneTimePayment(input: $lucasInput) {
+                paymentMethod{
+                    id
+                    usage
+                    customer{
+                        legacyId
+                        email
+                        firstName
+                        lastName
+                    }
+                }
+            }
+            }
+        `,
+
+        variables: JSON.parse(`
+        {
+            "lucasInput": {
+                "merchantAccountId": "${process.env.BRAINTREE_MAID}",
+                "paypalOneTimePayment": {
+                    "paymentId": "${req.body.paymentId}",
+                    "paymentToken": "${req.body.paymentId}",
+                    "payerId": "${req.body.payerId}"
+                }
+            }  
+        }
+    `)
+    });
+
+    console.log("requestPayload", requestPayload);
+
+    // Configuration de la requête fetch
+    const options = {
+        method: 'POST',
+        headers: braintreeHeaders(),
+        body: requestPayload
+    };
+
+    try {
+        // Envoi de la requête GraphQL
+        const response = await fetch(url, options);
+        const responsePayload = await response.json();
+
+
+        // Vérification des erreurs renvoyées par l'API
+        if (responsePayload.errors) {
+            return res.status(400).json({
+                error: responsePayload.errors[0]?.message || 'Erreur inconnue dans la réponse de Braintree'
+            });
+        }
+
+        // Renvoi de la réponse au client
+        res.json({
+            success: true,
+            data: responsePayload.data.tokenizePayPalOneTimePayment
+        });
+    } catch (error) {
+        // Gestion des erreurs réseau ou autres exceptions
+        res.status(500).json({
+            error: 'Erreur lors de la mutation GraphQL',
+            details: error.message
+        });
+    }
+};
+
 const vaultPaymentMethod = async (req, res) => {
 
     // Création du payload pour la mutation GraphQL
@@ -327,5 +398,5 @@ const findCustomerPM = async (req, res) => {
 };
 
 module.exports = {
-    createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, vaultPaymentMethod, findCustomerPM
+    createPayPalOneTimePayment, chargePaymentMethod, tokenizePayPalBillingAgreement, tokenizePayPalOneTimePayment, vaultPaymentMethod, findCustomerPM
 };

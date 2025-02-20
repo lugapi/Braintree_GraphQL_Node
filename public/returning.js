@@ -1,4 +1,4 @@
-const json = {
+let json = {
     variables: {
         lucasInput: {
             paymentMethodId: "cGF5bWVudG1ldGhvZF9wcF9yZWJxYWN4aw",
@@ -22,10 +22,10 @@ const editor = new JSONEditor(container, options);
 editor.set(json)
 editor.expandAll();
 
-async function callGraphQL() {
+async function returning() {
     const trxResult = document.querySelector('.result.trx');
     jsonToSend = editor.get();
-    const response = await fetch('/paypal-returning', {
+    const response = await fetch('/paypal-charge-pm', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -124,4 +124,112 @@ async function findCustomerPM() {
     // else {
     //     alert('Mutation GraphQL réussie !');
     // }
+}
+
+
+
+const jsonOneShot = {
+    variables: {
+        lucasInput: {
+            amount: { value: "100.01", currencyCode: "EUR" },
+            intent: "SALE",
+            returnUrl: "https://integration.lugapi.fr/display-params",
+            cancelUrl: "https://paypal.com/cancel",
+            offerPayLater: true,
+            requestBillingAgreement: false,
+            shippingAddress: {
+                addressLine1: "700 Cuesta Dr",
+                adminArea1: "CA",
+                adminArea2: "Mountain View",
+                postalCode: "94040",
+                countryCode: "US"
+            }
+        }
+    }
+}
+
+async function oneShot() {
+    jsonToSend = jsonOneShot;
+    const response = await fetch('/paypal-create-transaction', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            // Ajoutez les données nécessaires à la mutation ici
+            jsonToSend
+        }),
+    });
+
+    const result = await response.json();
+    console.log(result);
+    document.querySelector('.result.trx pre').innerHTML = JSON.stringify(result, null, 2);
+    document.querySelector('.result.trx').classList.remove('hidden')
+    document.querySelector('#oneTimeTokenize').classList.remove('hidden')
+    
+    if (result.error) {
+        alert('Erreur : ' + result.error);
+        // redirect customer on custom page
+    } else {
+        window.open(result.data.approvalUrl, '_blank');
+    }
+}
+
+
+async function tokenizeOneTime() {
+
+    const paymentId = document.querySelector('#paymentId').value;
+    const payerId = document.querySelector('#payerId').value;
+
+    const response = await fetch('/paypal-tokenize-onetime', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            // Ajoutez les données nécessaires à la mutation ici
+            paymentId,payerId
+        }),
+    });
+
+    const result = await response.json();
+    console.log(result);
+    document.querySelector('.result.tokenize pre').innerHTML = JSON.stringify(result, null, 2);
+    document.querySelector('#chargePaymentMethod input').value = result.data.paymentMethod.id
+    document.querySelector('#chargePaymentMethod').classList.remove('hidden')
+
+    if (result.error) {
+        alert('Erreur : ' + result.error);
+        // redirect customer on custom page
+    }
+    // else {
+    //     alert('Mutation GraphQL réussie !');
+    // }
+}
+
+async function chargePM() {
+   
+    const paymentMethod = document.querySelector('#chargePaymentMethod input').value;
+    json.variables.lucasInput.paymentMethodId = paymentMethod
+    jsonToSend = json
+    console.log(json)
+
+    const response = await fetch('/paypal-charge-pm', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            // Ajoutez les données nécessaires à la mutation ici
+            jsonToSend
+        }),
+    });
+
+    const result = await response.json();
+    console.log(result);
+    document.querySelector('#chargePaymentMethod .result pre').innerHTML = JSON.stringify(result, null, 2);
+
+    if (result.error) {
+        alert('Erreur : ' + result.error);
+    }
 }
