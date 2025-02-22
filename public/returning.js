@@ -148,8 +148,11 @@ const jsonOneShot = {
     }
 }
 
-async function oneShot() {
-    jsonToSend = jsonOneShot;
+async function oneShot(isBnpl) {
+    let varToSend = jsonOneShot;
+    varToSend.variables.lucasInput.offerPayLater = isBnpl;
+    let jsonToSend = varToSend;
+    
     const response = await fetch('/paypal-create-transaction', {
         method: 'POST',
         headers: {
