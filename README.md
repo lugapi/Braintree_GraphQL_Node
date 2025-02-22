@@ -47,13 +47,19 @@ Before you begin, ensure you have the following:
    cd Braintree_GraphQL_Node
    ```
 
-2. **Install dependencies:**
+2. **Remove package-lock.json:**
+
+   ```bash
+   rm package-lock.json
+   ```
+
+3. **Install dependencies:**
 
    ```bash
    npm install
    ```
 
-3. **Set up environment variables:**
+4. **Set up environment variables:**
 
    ```bash
     BRAINTREE_MERCHANT_ID=your_merchant_id
