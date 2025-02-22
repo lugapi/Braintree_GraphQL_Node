@@ -11,6 +11,10 @@ html {
     /* margin: 2%; */
 }
 
+.ppBtn.btnBnpl {
+    background-color: #0270bb!important;
+}
+
 .ppBtn:hover, #vaultSelection, #vaultSelection #check, #vaultSelection label {
     filter: brightness(0.95);
     cursor: pointer;

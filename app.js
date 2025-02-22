@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.get('/returning', (req, res) => {
     const custId = req.query?.custId
-    res.render('returning', { title: 'Returning flow', custId: custId });
+    res.render('returning', { title: 'Returning flow', custId: custId, col_row: process.env.COL_OR_ROW || "col" });
 });
 
 
