@@ -47,7 +47,7 @@ editor.set(json)
 editor.expandAll();
 
 async function firstTime() {
-    jsonToSend = editor.get();
+    const jsonToSend = editor.get();
     const response = await fetch('/paypal-create-transaction', {
         method: 'POST',
         headers: {
@@ -118,8 +118,8 @@ async function vaultPM() {
     const result = await response.json();
     console.log(result);
     document.querySelector('.result.vault pre').innerHTML = JSON.stringify(result, null, 2);
-    document.getElementById("returningLink").innerText += ` with customer ${result.data.vaultPaymentMethod.paymentMethod.customer.id}`
-    document.getElementById("returningLink").href += `?custId=${result.data.vaultPaymentMethod.paymentMethod.customer.id}`
+    document.getElementById("returningLink").innerText += ` with customer ${result.data.paymentMethod.customer.id}`
+    document.getElementById("returningLink").href += `?custId=${result.data.paymentMethod.customer.id}`
 
     if (result.error) {
         alert('Erreur : ' + result.error);

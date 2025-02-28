@@ -253,7 +253,7 @@ const vaultPaymentMethod = async (req, res) => {
         // Renvoi de la réponse au client
         res.json({
             success: true,
-            data: responsePayload.data
+            data: responsePayload.data.vaultPaymentMethod
         });
     } catch (error) {
         // Gestion des erreurs réseau ou autres exceptions
